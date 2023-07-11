@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>MCDAVE Quality CRQS Assessment</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        table th,
+        table td {
+            padding: 8px;
+            border: 1px solid #ddd;
+        }
+
+        table th {
+            background-color: #f2f2f2;
+        }
+
+        input[type="date"],
+        input[type="text"],
+        select {
+            width: 100%;
+            padding: 4px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        #addRecordButton {
+            margin-top: 10px;
+        }
+    </style>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+    <h1>MCDAVE QUALITY CRQS ASSESSMENT-FM-01-MDL-QA</h1>
+
+    <table id="assessmentTable">
+        <thead>
+            <tr>
+                <th rowspan="2">MCDAVE QUALITY CRQS ASSESSMENT-FM-01-MDL-QA</th>
+                <th>DATE</th>
+                <th>WEEK</th>
+                <th>HOURS</th>
+                <th>BATCH NUMBER</th>
+                <th>ASSESSER</th>
+                <th>BRAND</th>
+                <th>SKU</th>
+                <th>NUMBER OF SAMPLES</th>
+                <th>ISSUE DESCRIPTION</th>
+                <th>COUNT OF ISSUES</th>
+                <th>SCORE</th>
+                <th>TEMPERATURE</th>
+                <th>SPEED</th>
+                <th>PARAMETER</th>
+                <th>PROPERTY</th>
+                <th>ISSUE</th>
+                <th>COMMENT</th>
+            </tr>
+            <tr>
+                <th><input type="date" id="dateInput" required></th>
+                <th><input type="number" id="weekInput" min="1" required></th>
+                <th><input type="number" id="hoursInput" min="1" required></th>
+                <th><input type="text" id="batchInput" required></th>
+                <th>
+                    <select id="assessorInput" required>
+                        <option value="Dennis Muasya">Dennis Muasya</option>
+                        <option value="Christine Ndinda">Christine Ndinda</option>
+                        <option value="Allan Korir">Allan Korir</option>
+                        <option value="Christine Mwende">Christine Mwende</option>
+                    </select>
+                </th>
+                <th>
+                    <select id="brandInput" required>
+                        <option value="Vim lemon">Vim lemon</option>
+                        <option value="Vim pouch">Vim pouch</option>
+                        <option value="Vim promo">Vim promo</option>
+                        <option value="Vim lavender">Vim lavender</option>
+                        <option value="Sunlight lemon">Sunlight lemon</option>
+                        <option value="Sunlight lavender">Sunlight lavender</option>
+                        <option value="Domestos">Domestos</option>
+                        <option value="Zelia handwash">Zelia handwash</option>
+                        <option value="Zelia toilet cleaner">Zelia toilet cleaner</option>
+                        <option value="Zelia multipurpose">Zelia multipurpose</option>
+                        <option value="Zelia dishwashing paste">Zelia dishwashing paste</option>
+                        <option value="Zelia bleach">Zelia bleach</option>
+                    </select>
+                </th>
+                <th><input type="text" id="skuInput" required></th>
+                <th><input type="number" id="samplesInput" min="1" required></th>
+                <th>
+                    <select id="issueInput" required>
+                        <option value="Major print colour deviation">Major print colour deviation</option>
+                        <option value="Blotches">Blotches</option>
+                        <option value="Ink lines or fading code">Ink lines or fading code</option>
+                        <option value="Print colour registration is not aligned">Print colour registration is not aligned</option>
+                        <!-- Add more options as needed -->
+                    </select>
+                </th>
+                <th><input type="number" id="countInput" min="1" max="10" required></th>
+                <th id="score"></th>
+                <th><input type="text" id="temperatureInput" required></th>
+                <th><input type="text" id="speedInput" required></th>
+                <th><input="text" id="parameterInput" required></th>
+                <th><input type="text" id="propertyInput" required></th>
+                <th><input type="text" id="issueInput" required></th>
+                <th><input type="text" id="commentInput" required></th>
+            </tr>
+        </thead>
+        <tbody id="assessmentRecords">
+            <!-- Assessment records will be dynamically populated here -->
+        </tbody>
+    </table>
+
+    <div class="pagination">
+        <button id="prevPageButton" disabled>&#10094; Prev</button>
+        <button id="nextPageButton">Next &#10095;</button>
+    </div>
+
+    <button id="addRecordButton">Add Record</button>
+
+    <script src="script.js">// Function to calculate the score
+        function calculateScore(count, samples) {
+            if (count > 0 && samples > 0) {
+                return (count / samples).toFixed(2);
+            }
+            return 0;
+        }
+
+        // Function to add a new assessment record to the table
+        function addAssessmentRecord() {
+            var dateInput = document.getElementById("dateInput");
+            var weekInput = document.getElementById("weekInput");
+            var hoursInput = document.getElementById("hoursInput");
+            var batchInput = document.getElementById("batchInput");
+            var assessorInput = document.getElementById("assessorInput");
+            var brandInput = document.getElementById("brandInput");
+            var skuInput = document.getElementById("skuInput");
+            var samplesInput = document.getElementById("samplesInput");
+            var issueInput = document.getElementById("issueInput");
+            var countInput = document.getElementById("countInput");
+            var temperatureInput = document.getElementById("temperatureInput");
+            var speedInput = document.getElementById("speedInput");
+            var parameterInput = document.getElementById("parameterInput");
+            var propertyInput = document.getElementById("propertyInput");
+            var issueDescriptionInput = document.getElementById("issueDescriptionInput");
+            var commentInput = document.getElementById("commentInput");
+
+            // Validate fields before adding the record
+            if (!dateInput.checkValidity() || !weekInput.checkValidity() || !hoursInput.checkValidity() ||
+                !batchInput.checkValidity() || !assessorInput.checkValidity() || !brandInput.checkValidity() ||
+                !skuInput.checkValidity() || !samplesInput.checkValidity() || !issueInput.checkValidity() ||
+                !countInput.checkValidity() || !temperatureInput.checkValidity() || !speedInput.checkValidity() ||
+                !parameterInput.checkValidity() || !propertyInput.checkValidity() || !issueDescriptionInput.checkValidity() ||
+                !commentInput.checkValidity()) {
+                return;
+            }
+
+            // Get the values from the input fields
+            var date = dateInput.value;
+            var week = parseInt(weekInput.value);
+            var hours = parseInt(hoursInput.value);
+            var batch = batchInput.value;
+            var assessor = assessorInput.value;
+            var brand = brandInput.value;
+            var sku = skuInput.value;
+            var samples = parseInt(samplesInput.value);
+            var issue = issueInput.value;
+            var count = parseInt(countInput.value);
+            var temperature = temperatureInput.value;
+            var speed = speedInput.value;
+            var parameter = parameterInput.value;
+            var property = propertyInput.value;
+            var issueDescription = issueDescriptionInput.value;
+            var comment = commentInput.value;
+
+            // Calculate the score
+            var score = calculateScore(count, samples);
+
+            // Create a new row and cells for the assessment record
+            var table = document.getElementById("assessmentRecords");
+            var newRow = table.insertRow();
+            var cells = [
+                newRow.insertCell(),
+                newRow.insertCell(),
+                newRow.insertCell(),
+                newRow.insertCell(),
+                newRow.insertCell(),
+                newRow.insertCell(),
+                newRow.insertCell(),
+                newRow.insertCell(),
+                newRow.insertCell(),
+                newRow.insertCell(),
+                newRow.insertCell(),
+                newRow.insertCell(),
+                newRow.insertCell(),
+                newRow.insertCell(),
+                newRow.insertCell(),
+                newRow.insertCell(),
+                newRow.insertCell(),
+                newRow.insertCell(),
+                newRow.insertCell(),
+            ];
+
+            // Set the values for each cell
+            cells[0].textContent = date;
+            cells[1].textContent = week;
+            cells[2].textContent = hours;
+            cells[3].textContent = batch;
+            cells[4].textContent = assessor;
+            cells[5].textContent = brand;
+            cells[6].textContent = sku;
+            cells[7].textContent = samples;
+            cells[8].textContent = issue;
+            cells[9].textContent = count;
+            cells[10].textContent = score;
+            cells[11].textContent = temperature;
+            cells[12].textContent = speed;
+            cells[13].textContent = parameter;
+            cells[14].textContent = property;
+            cells[15].textContent = issueDescription;
+            cells[16].textContent = comment;
+
+            // Clear the input fields for the next record
+            dateInput.value = "";
+            weekInput.value = "";
+            hoursInput.value = "";
+            batchInput.value = "";
+            samplesInput.value = "";
+            countInput.value = "";
+            temperatureInput.value = "";
+            speedInput.value = "";
+            parameterInput.value = "";
+            propertyInput.value = "";
+            issueDescriptionInput.value = "";
+            commentInput.value = "";
+        }
+
+        // Add event listener to the "Add Record" button
+        var addRecordButton = document.getElementById("addRecordButton");
+        addRecordButton.addEventListener("click", addAssessmentRecord);
+
+        // Pagination functionality
+        var currentPage = 1;
+        var recordsPerPage = 5;
+        var assessmentRecords = document.getElementById("assessmentRecords").rows;
+        var totalPages = Math.ceil(assessmentRecords.length / recordsPerPage);
+        var prevPageButton = document.getElementById("prevPageButton");
+        var nextPageButton = document.getElementById("nextPageButton");
+
+        function showRecords(page) {
+            var startIndex = (page - 1) * recordsPerPage;
+            var endIndex = startIndex + recordsPerPage - 1;
+
+            for (var i = 0; i < assessmentRecords.length; i++) {
+                if (i >= startIndex && i <= endIndex) {
+                    assessmentRecords[i].style.display = "table-row";
+                } else {
+                    assessmentRecords[i].style.display = "none";
+                }
+            }
+        }
+
+        function updatePaginationButtons() {
+            prevPageButton.disabled = currentPage === 1;
+            nextPageButton.disabled = currentPage === totalPages;
+        }
+
+        function goToPrevPage() {
+            if (currentPage > 1) {
+                currentPage--;
+                showRecords(currentPage);
+                updatePaginationButtons();
+            }
+        }
+
+        function goToNextPage() {
+            if (currentPage < totalPages) {
+                currentPage++;
+                showRecords(currentPage);
+                updatePaginationButtons();
+            }
+        }
+
+        prevPageButton.addEventListener("click", goToPrevPage);
+        nextPageButton.addEventListener("click", goToNextPage);
+
+        // Show the initial records on the first page
+        showRecords(currentPage);
+        updatePaginationButtons();
+    </script>
+</body>
+</html>
