@@ -48,44 +48,49 @@
   <body style="width: fit-content;">
     <h2 class="text-center bg-warning">MCDAVE QUALITY CRQS ASSESSMENT-FM-01-MDL-QA</h2>
 
-    <table id="assessmentTable" class="table bg-info table-responsive table-striped table-hover table-bordered align-baseline top">
-      <thead>
-        <tr>
-          <th rowspan="2">MCDAVE QUALITY CRQS ASSESSMENT-FM-01-MDL-QA</th>
-          <th>DATE</th>
-          <th>WEEK</th>
-          <th>HOURS</th>
-          <th>BATCH NUMBER</th>
-          <th>ASSESSER</th>
-          <th>BRAND</th>
-          <th>SKU</th>
-          <th>NUMBER OF SAMPLES</th>
-          <th>ISSUE DESCRIPTION</th>
-          <th>COUNT OF ISSUES</th>
-          <th>SCORE</th>
-          <th>TEMPERATURE</th>
-          <th>SPEED</th>
-          <th>PARAMETER</th>
-          <th>PROPERTY</th>
-          <th>ISSUE</th>
-          <th>COMMENT</th>
-        </tr>
-        <tr>
-          <th><input type="date" id="dateInput" required /></th>
-          <th><input type="number" id="weekInput" min="1" required /></th>
-          <th><input type="number" id="hoursInput" min="1" required /></th>
-          <th><input type="text" id="batchInput" required /></th>
-          <th>
-            <select id="assessorInput" required>
-              <option value="Dennis Muasya">Dennis Muasya</option>
-              <option value="Christine Ndinda">Christine Ndinda</option>
-              <option value="Allan Korir">Allan Korir</option>
-              <option value="Christine Mwende">Christine Mwende</option>
-            </select>
-          </th>
-          <th>
-            <select id="brandInput" required>
-              <option value="Vim lemon">Vim lemon</option>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="">
+          <table id="assessmentTable" class="table bg-info table-lg table-striped table-hover table-bordered align-baseline top">
+            <thead>
+              <tr>
+                <th rowspan="2">MCDAVE QUALITY CRQS ASSESSMENT-FM-01-MDL-QA</th>
+                <th>DATE</th>
+                <th>WEEK</th>
+                <th>HOURS</th>
+                <th>BATCH NUMBER</th>
+                <th>ASSESSER</th>
+                <th>BRAND</th>
+                <th>SKU</th>
+                <th>NUMBER OF SAMPLES</th>
+                <th>ISSUE DESCRIPTION</th>
+                <th>COUNT OF ISSUES</th>
+                <th>SCORE</th>
+                <th>TEMPERATURE</th>
+                <th>SPEED</th>
+                <th>PARAMETER</th>
+                <th>PROPERTY</th>
+                <th>ISSUE</th>
+                <th>COMMENT</th>
+              </tr>
+              <tr>
+                <th><input type="date" id="dateInput" class="form-control" required /></th>
+                <th><input type="number" id="weekInput" class="form-control" min="1" required /></th>
+                <th><input type="number" id="hoursInput" class="form-control" min="1" required /></th>
+                <th><input type="text" id="batchInput" class="form-control" required /></th>
+                <th>
+                  <select id="assessorInput" class="form-control" required>
+                    <option value="Dennis Muasya">Dennis Muasya</option>
+                    <option value="Christine Ndinda">Christine Ndinda</option>
+                    <option value="Allan Korir">Allan Korir</option>
+                    <option value="Christine Mwende">Christine Mwende</option>
+
+                  </select>
+                </th>
+                <th>
+                  <select id="brandInput" class="form-control" required>
+                   <option value="Vim lemon">Vim lemon</option>
               <option value="Vim pouch">Vim pouch</option>
               <option value="Vim promo">Vim promo</option>
               <option value="Vim lavender">Vim lavender</option>
@@ -99,41 +104,37 @@
                 Zelia dishwashing paste
               </option>
               <option value="Zelia bleach">Zelia bleach</option>
-            </select>
-          </th>
-          <th><input type="text" id="skuInput" required /></th>
-          <th><input type="number" id="samplesInput" min="1" required /></th>
-          <th>
-            <select id="issueInput" required>
-              <option value="Major print colour deviation">
-                Major print colour deviation
-              </option>
-              <option value="Blotches">Blotches</option>
-              <option value="Ink lines or fading code">
-                Ink lines or fading code
-              </option>
-              <option value="Print colour registration is not aligned">
-                Print colour registration is not aligned
-              </option>
-              <!-- Add more options as needed -->
-            </select>
-          </th>
-          <th>
-            <input type="number" id="countInput" min="1" max="10" required />
-          </th>
-          <th id="score"></th>
-          <th><input type="text" id="temperatureInput" required /></th>
-          <th><input type="text" id="speedInput" required /></th>
-          <th><input type="text" id="parameterInput" required /></th>
-          <th><input type="text" id="propertyInput" required /></th>
-          <th><input type="text" id="issueInput" required /></th>
-          <th><input type="text" id="commentInput" required /></th>
-        </tr>
-      </thead>
-      <tbody id="assessmentRecords">
-        <!-- Assessment records will be dynamically populated here -->
-      </tbody>
-    </table>
+
+                  </select>
+                </th>
+                <th><input type="text" id="skuInput" class="form-control" required /></th>
+                <th><input type="number" id="samplesInput" class="form-control" min="1" required /></th>
+                <th>
+                  <select id="issueInput" class="form-control" required>
+                    <option value="Major print colour deviation">Major print colour deviation</option>
+                    <option value="Blotches">Blotches</option>
+                    <option value="Ink lines or fading code">Ink lines or fading code</option>
+                    <option value="Print colour registration is not aligned">Print colour registration is not aligned</option>
+                    <!-- Add more options as needed -->
+                  </select>
+                </th>
+                <th><input type="number" id="countInput" class="form-control" min="1" max="10" required /></th>
+                <th id="score"></th>
+                <th><input type="text" id="temperatureInput" class="form-control" required /></th>
+                <th><input type="text" id="speedInput" class="form-control" required /></th>
+                <th><input type="text" id="parameterInput" class="form-control" required /></th>
+                <th><input type="text" id="propertyInput" class="form-control" required /></th>
+                <th><input type="text" id="issueInput" class="form-control" required /></th>
+                <th><input type="text" id="commentInput" class="form-control" required /></th>
+              </tr>
+            </thead>
+            <tbody id="assessmentRecords">
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
     <div class="container">
       <div class="row float-start">
         <div class="col-md-12 float-end">
