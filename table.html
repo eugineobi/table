@@ -13,7 +13,7 @@
       crossorigin="anonymous"
     ></script>
     <title >MCDAVE Quality CRQS Assessment</title>
-    <!-- <style>
+    <style>
       table {
         border-collapse: collapse;
         width: 100%;
@@ -43,7 +43,7 @@
       #addRecordButton {
         margin-top: 10px;
       }
-    </style> -->
+    </style>
   </head>
   <body style="width: fit-content;">
     <h2 class="text-center bg-warning">MCDAVE QUALITY CRQS ASSESSMENT-FM-01-MDL-QA</h2>
@@ -313,53 +313,78 @@
       addRecordButton.addEventListener("click", addAssessmentRecord);
 
       // Pagination functionality
-      var currentPage = 1;
-      var recordsPerPage = 5;
-      var assessmentRecords = document.getElementById("assessmentRecords").rows;
-      var totalPages = Math.ceil(assessmentRecords.length / recordsPerPage);
-      var prevPageButton = document.getElementById("prevPageButton");
-      var nextPageButton = document.getElementById("nextPageButton");
+        var currentPage = 1;
+        var recordsPerPage = 15;
 
-      function showRecords(page) {
-        var startIndex = (page - 1) * recordsPerPage;
-        var endIndex = startIndex + recordsPerPage - 1;
+        var table = document.getElementById("assessmentRecords");
 
-        for (var i = 0; i < assessmentRecords.length; i++) {
-          if (i >= startIndex && i <= endIndex) {
-            assessmentRecords[i].style.display = "table-row";
-          } else {
-            assessmentRecords[i].style.display = "none";
-          }
+        var rows = table.getElementsByTagName("tr");
+        var totalPages = Math.ceil(rows.length / recordsPerPage);
+
+        var pagination = document.getElementById("pagination");
+
+        // Create the pagination links
+        function createPaginationLinks() {
+            pagination.innerHTML = "";
+
+            var prevLink = document.createElement("a");
+            prevLink.href = "#";
+            prevLink.textContent = "Prev";
+            prevLink.addEventListener("click", function () {
+                if (currentPage > 1) {
+                    currentPage--;
+                    changePage(currentPage);
+                }
+            });
+            pagination.appendChild(prevLink);
+
+            for (var i = 1; i <= totalPages; i++) {
+                var link = document.createElement("a");
+                link.href = "#";
+                link.textContent = i;
+                link.addEventListener(
+                    "click",
+                    function (pageNumber) {
+                        return function () {
+                            currentPage = pageNumber;
+                            changePage(currentPage);
+                        };
+                    }(i)
+                );
+                pagination.appendChild(link);
+            }
+
+            var nextLink = document.createElement("a");
+            nextLink.href = "#";
+            nextLink.textContent = "Next";
+            nextLink.addEventListener("click", function () {
+                if (currentPage < totalPages) {
+                    currentPage++;
+                    changePage(currentPage);
+                }
+            });
+            pagination.appendChild(nextLink);
         }
-      }
 
-      function updatePaginationButtons() {
-        prevPageButton.disabled = currentPage === 1;
-        nextPageButton.disabled = currentPage === totalPages;
-      }
+        // Change the page
+        function changePage(page) {
+            var firstRecord = (page - 1) * recordsPerPage;
+            var lastRecord = firstRecord + recordsPerPage;
 
-      function goToPrevPage() {
-        if (currentPage > 1) {
-          currentPage--;
-          showRecords(currentPage);
-          updatePaginationButtons();
+            for (var i = 1; i < rows.length; i++) {
+                if (i < firstRecord || i >= lastRecord) {
+                    rows[i].style.display = "none";
+                } else {
+                    rows[i].style.display = "";
+                }
+            }
+
+            createPaginationLinks();
         }
-      }
 
-      function goToNextPage() {
-        if (currentPage < totalPages) {
-          currentPage++;
-          showRecords(currentPage);
-          updatePaginationButtons();
-        }
-      }
+        // Initialize the page
+        changePage(1);
 
-      prevPageButton.addEventListener("click", goToPrevPage);
-      nextPageButton.addEventListener("click", goToNextPage);
-
-      // Show the initial records on the first page
-      showRecords(currentPage);
-      updatePaginationButtons();
-    </script>
+   </script>
   </body>
 </html>
